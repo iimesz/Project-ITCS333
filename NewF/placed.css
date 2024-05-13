@@ -1,0 +1,125 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.detail{
+    width : 87%;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 20px 0;
+}
+    
+header h1 {
+    text-align: center;
+    padding-top:10px ;
+    font-size: 20px;
+      
+}
+    
+header nav {
+    margin-top: 4px;
+    display: inline;
+    align-items: center;
+    padding: 10px ;
+    margin-left: 4px;
+    
+}
+    
+header a{
+    margin-left: 10px;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid ;
+    padding: 3px 5px;
+}
+.fruit {
+    background-image: url('images/fruits.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 150px;
+}
+
+main{
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 100px 0;
+    align-items: center;
+    text-align: center;
+}  
+
+main img{
+    width: 20%;
+    height: 40%;
+}
+
+
+.continue-shopping-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+continue-shopping-button:hover {
+    background-color: #45a049;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    min-height: 70px;
+}
+  
+footer p {
+    margin: 0;
+}
+@media (max-width:768px){
+
+.detail{
+      display: block;
+      text-align: center;
+      width:100%;
+      align-items: center;
+}
+    
+header nav{
+    width: 100%;
+}
+
+main img{
+    width: 40%;
+}
+    
+header a{
+      display: block;
+      width:100%;
+      padding: 8px ;
+      margin-left: 0px;
+}
+}
+@media (max-width:400px){
+
+    main img{
+        width: 50%;
+    }  
+    
+}
+    
