@@ -1,0 +1,25 @@
+.container h1, h3 {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.hero h2 {
+    margin-bottom: 20px;
+}
+  
+.hero p {
+    margin-bottom: 40px;
+}
+
+.product h3:hover {
+    font-size: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+#add {
+    background-color: rgba(180, 173, 173, 0.6);
+}
