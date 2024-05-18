@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2024 at 08:13 PM
+-- Generation Time: May 17, 2024 at 11:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -66,7 +66,10 @@ INSERT INTO `orders` (`Order_id`, `Username`, `Date`, `Status`) VALUES
 (2, 'AliAhmed223', '2024-05-08', 'Order Placed'),
 (3, 'AliAhmed223', '2024-05-11', 'Order Placed'),
 (4, 'AliAhmed223', '2024-05-11', 'Order Placed'),
-(5, 'AliAhmed223', '2024-05-14', 'Order Placed');
+(5, 'AliAhmed223', '2024-05-14', 'Order Placed'),
+(6, 'AliAhmed223', '2024-05-15', 'Order Placed'),
+(7, 'AliAhmed223', '2024-05-17', 'Order Placed'),
+(8, 'AliAhmed223', '2024-05-17', 'Order Placed');
 
 -- --------------------------------------------------------
 
@@ -92,7 +95,11 @@ INSERT INTO `order_items` (`id`, `orderid`, `pid`, `quantity`) VALUES
 (4, 3, 2, 2),
 (5, 4, 5, 1),
 (6, 4, 6, 2),
-(7, 5, 2, 2);
+(7, 5, 2, 2),
+(8, 6, 1, 1),
+(9, 7, 6, 1),
+(10, 8, 7, 1),
+(11, 8, 9, 1);
 
 -- --------------------------------------------------------
 
@@ -115,13 +122,13 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`Pid`, `Name`, `Price`, `Description`, `Quantity`, `Cid`, `Picture`) VALUES
-(1, 'Yemen Mango 1KG', 0.74, 'Sit back and savor the rich flavor with these Fresh Mango Kalbathoor Yemen. Enriched with natural sugars, carbohydrates and tons of other essential nutrients like multivitamins, these mangoes provide you with daily nutritional intake. The unique creamy texture with a mild aroma is sure to shake your taste buds at the right time. You can eat it raw, blend it for a yummy smoothie, add in the fruit salad, or use it as toppings on yoghurt, ice cream and more. These mangoes are carefully hand-picked from the organic farms, finely sorted, and precisely packed, following the safety standards to deliver the healthiest and the best-tasting mangoes to you.\r\n', 9, 1, 'mango.jpg'),
+(1, 'Yemen Mango 1KG', 0.74, 'Sit back and savor the rich flavor with these Fresh Mango Kalbathoor Yemen. Enriched with natural sugars, carbohydrates and tons of other essential nutrients like multivitamins, these mangoes provide you with daily nutritional intake. The unique creamy texture with a mild aroma is sure to shake your taste buds at the right time. You can eat it raw, blend it for a yummy smoothie, add in the fruit salad, or use it as toppings on yoghurt, ice cream and more. These mangoes are carefully hand-picked from the organic farms, finely sorted, and precisely packed, following the safety standards to deliver the healthiest and the best-tasting mangoes to you.\r\n', 8, 1, 'mango.jpg'),
 (2, 'Blueberry Morocco 125g', 0.89, 'Make a healthy and delicious addition to your meals with the Fresh blueberry. These blueberries offer a sweet taste and can be enjoyed by kids and adults alike. They are ideal for use at home or carrying outdoors. Blueberries can be eaten fresh or incorporated into a variety of dishes. It’s a unique and ideal addition to your weekly diet. We strive to ensure that the products are of a high standard of quality and meet the requirements of food safety. Our team constantly and carefully monitor what we have in stock to recognize the freshest items and to assure it’s of the best possible quality.\r\n', 9, 1, 'blueberry.jpg'),
 (5, 'Galaxy Jewels Assortment Chocolate Box 900g\r\n', 8.215, 'Genuine taste and precious moments with Galaxy Jewels. Experience the miniatures crafted from smooth Galaxy chocolate with variants of flavors, ideal for sharing with friends and loved ones. The assorted chocolates cater to all taste buds, featuring rich pralines and classic chocolate filling combinations. Galaxy Jewels offers you a range of diverse flavors like Hazelnut, Milk Chocolate, Crispy, Mixed Nuts, and Caramel. Each Galaxy Jewels piece is meticulously wrapped, enhancing the luxurious experience of savoring these premium chocolates. Elevate ordinary evenings with a premium touch by unwinding with a Galaxy Jewels chocolate, making this chocolate assortment a decadent choice for diverse flavors and indulgent moments.', 8, 2, 'galaxy.jpg'),
-(6, 'Nestle KitKat 2 Finger Milk Chocolate Wafer Bar Value Pack 8 pcs', 1, 'Nestle KitKat 2 Finger Milk Chocolate Wafer is made of delicious milk chocolate and extra crispy wafer that delights your taste buds. When you\'re looking to enjoy a quick snack, KitKat 4 Finger is your go-to choice. Its unique combination of textures and flavors makes it a delightful treat suitable for vegetarians.', 8, 2, 'kitkat.jpg'),
-(7, 'Tomato 1kg', 0.54, 'The Tomatoes are full of minerals and vitamins that promote good health. In addition, these tomatoes are an excellent source of vitamin C that helps you maintain a balanced diet. With a slightly tart and sour taste, these tomatoes are ideal for adding to various dishes. You can add the Lulu Fresh tomatoes to savoury items, burgers, and snacks, meanwhile, they also make for a great salad option. You can have the tomato directly or pair it with other complementary veggies. They are freshly sourced from Saudi/Jordan that ensures safe and reliable consumption.', 15, 1, 'tomato.jpg'),
+(6, 'Nestle KitKat 2 Finger Milk Chocolate Wafer Bar Value Pack 8 pcs', 1, 'Nestle KitKat 2 Finger Milk Chocolate Wafer is made of delicious milk chocolate and extra crispy wafer that delights your taste buds. When you\'re looking to enjoy a quick snack, KitKat 4 Finger is your go-to choice. Its unique combination of textures and flavors makes it a delightful treat suitable for vegetarians.', 7, 2, 'kitkat.jpg'),
+(7, 'Tomato 1kg', 0.54, 'The Tomatoes are full of minerals and vitamins that promote good health. In addition, these tomatoes are an excellent source of vitamin C that helps you maintain a balanced diet. With a slightly tart and sour taste, these tomatoes are ideal for adding to various dishes. You can add the Lulu Fresh tomatoes to savoury items, burgers, and snacks, meanwhile, they also make for a great salad option. You can have the tomato directly or pair it with other complementary veggies. They are freshly sourced from Saudi/Jordan that ensures safe and reliable consumption.', 14, 1, 'tomato.jpg'),
 (8, 'Onion Big Bag', 1.3, 'Add a unique flavour to your everyday dishes with Fresh Onion. These onions provide a unique taste and texture. They are rich in fibre, antioxidants, vitamin C, potassium, and other nutrients that your body needs for maintaining proper overall health. These onions are carefully hand-picked from organic farms, finely sorted, and precisely packed, following the safety standards to deliver the healthiest and the best-tasting ones to you. We strive to ensure that the products are of a high standard of quality and meet the requirements of food safety. Our team constantly and carefully monitor what we have in stock to recognize the freshest items and to assure it\'s of the best possible quality. You can add them to soups, meats, guacamole, and baked dishes as seasoning agents. Thanks to the low-calorie contents, these onions make for an ideal addition to your diet.\r\n', 12, 1, 'onion.jpg'),
-(9, 'Cucumber 1kg', 0.69, 'Forge ahead in your fitness journey by including delicious and healthy salads of Fresh Cucumbers. They have a high water content to take care of your hydration needs. In addition, the cucumbers contain a significant percentage of vitamins and minerals, making them one of the major food sources to support essential bodily functions. Implementing high-level agricultural expertise and well-established farming techniques, these cucumbers are cultivated in optimum conditions and selectively harvested for their superior quality and a good texture. They will work miracles for your health and enrich your lifestyle when involved in the regular diet. In addition, the cucumbers are known for their versatile application in the global food culture.', 14, 1, 'cucumber.jpg'),
+(9, 'Cucumber 1kg', 0.69, 'Forge ahead in your fitness journey by including delicious and healthy salads of Fresh Cucumbers. They have a high water content to take care of your hydration needs. In addition, the cucumbers contain a significant percentage of vitamins and minerals, making them one of the major food sources to support essential bodily functions. Implementing high-level agricultural expertise and well-established farming techniques, these cucumbers are cultivated in optimum conditions and selectively harvested for their superior quality and a good texture. They will work miracles for your health and enrich your lifestyle when involved in the regular diet. In addition, the cucumbers are known for their versatile application in the global food culture.', 13, 1, 'cucumber.jpg'),
 (10, 'Apple Royal Gala USA 1 kg\r\n', 1.275, 'Curb the craving for nutritious diet food with the Fresh Royal Gala Apples. Sourced fresh from USA, these sweet, fine-textured, and aromatic fruit offer exceptional taste and texture with every bite. Moreover, these apples are filled with antioxidants and nutrients to satisfy the nutritional requirements of your body.', 10, 1, 'apple.jpg'),
 (14, 'Maxwell House Smooth Blend Instant Coffee 47.5 g', 1.3, 'Give your mornings a refreshing start with the Maxwell House Soluble Coffee Smooth Blend. It is made from carefully sourced coffee beans to ensure the perfect taste and flavour in every sip. The delicious taste and refreshing aroma make this coffee stand out. It easily and quickly mixes with milk or water to give you a rich colour. It is sure to put you in a better mood instantly, no matter if it is day or night! You can relish a cup during late-night meetings, a perfect accompaniment while reading a book or for kick-starting the day in the right way.', 7, 4, 'maxwell.jpg'),
 (15, 'Alicafe Classic 3in1 Regular Coffee 22 x 20 g', 1.56, 'Alicafe Classic 3 in 1 Regular Coffee 22 Sachets 440g', 5, 4, 'alicafe.jpg'),
@@ -213,13 +220,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `Order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `products`
