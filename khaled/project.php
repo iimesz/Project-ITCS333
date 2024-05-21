@@ -139,19 +139,19 @@ require 'connection.php';
 
                 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_staff'])) {
                     
-                    $staff_username = $_POST['username'];
-                    $staff_password = $_POST['password'];
-                    $staff_fname = $_POST['fname'];
-                    $staff_lname = $_POST['lname'];
-                    $staff_email = $_POST['email'];
-                    $staff_contact = $_POST['contact'];
+                    $staff_username = trim($_POST['username']);
+                    $staff_password = trim($_POST['password']);
+                    $staff_fname = trim($_POST['fname']);
+                    $staff_lname = trim($_POST['lname']);
+                    $staff_email = trim($_POST['email']);
+                    $staff_contact = trim($_POST['contact']);
                     
                     $UserEx = "/^[a-zA-Z0-9_-]{3,16}$/";
                     $PassEx = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,16}$/";
                     $NameEx = "/^[a-zA-Z0-9_-]{3,16}$/";
                     $EmailEx = "/^[a-zA-Z0-9.-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,5}$/";
                     $ContactEx = "/^(?:\+973|00973)?(3[0-9]{7}|1[7-9][0-9]{6})$/";
-
+                    
                     if (!preg_match($UserEx, $staff_username)) {
                         $error = "Invalid username format.";
                     } elseif (!preg_match($PassEx, $staff_password)) {
@@ -204,12 +204,12 @@ require 'connection.php';
                 } else {
                     ?>
                     <form action="" method="post">
-                        <input type="text" name="username" placeholder="Username" required>
-                        <input type="text" name="password" placeholder="Password" required>
-                        <input type="text" name="fname" placeholder="First Name" required>
-                        <input type="text" name="lname" placeholder="Last Name" required>
-                        <input type="text" name="email" placeholder="Email" required>
-                        <input type="text" name="contact" placeholder="Contact" required>
+                        <input type="text" name="username" placeholder="Username">
+                        <input type="password" name="password" placeholder="Password">
+                        <input type="text" name="fname" placeholder="First Name">
+                        <input type="text" name="lname" placeholder="Last Name">
+                        <input type="text" name="email" placeholder="Email">
+                        <input type="text" name="contact" placeholder="Contact">
                         <button type="submit" name="add_staff">Add Staff</button>
                     </form>
                     <button class="logout-button" onclick="window.location.href='logout.php';">Log Out</button>
