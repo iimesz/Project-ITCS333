@@ -117,6 +117,14 @@ require 'connection.php';
         .logout-button:hover {
             background-color: #c82333;
         }
+
+        .error {
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
     </style>
 </head>
 <body>
@@ -126,49 +134,82 @@ require 'connection.php';
             <?php
             if (isset($_SESSION['username']) && $_SESSION['user_type'] == 'admin') {
 
+                $error = "";
+                $success = "";
+
                 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_staff'])) {
                     
                     $staff_username = $_POST['username'];
                     $staff_password = $_POST['password'];
-                    $hashed_password = password_hash($staff_password, PASSWORD_DEFAULT);
                     $staff_fname = $_POST['fname'];
                     $staff_lname = $_POST['lname'];
                     $staff_email = $_POST['email'];
                     $staff_contact = $_POST['contact'];
+                    
+                    $UserEx = "/^[a-zA-Z0-9_-]{3,16}$/";
+                    $PassEx = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,16}$/";
+                    $NameEx = "/^[a-zA-Z0-9_-]{3,16}$/";
+                    $EmailEx = "/^[a-zA-Z0-9.-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,5}$/";
+                    $ContactEx = "/^(?:\+973|00973)?(3[0-9]{7}|1[7-9][0-9]{6})$/";
 
-                    $query = "INSERT INTO users (Username, Password, Fname, Lname, Email, Contact, `User-Type`) 
-                              VALUES (:username, :password, :fname, :lname, :email, :contact, 'staff')";
-                    $stmt = $db->prepare($query);
-                    $stmt->bindParam(':username', $staff_username);
-                    $stmt->bindParam(':password', $hashed_password);
-                    $stmt->bindParam(':fname', $staff_fname);
-                    $stmt->bindParam(':lname', $staff_lname);
-                    $stmt->bindParam(':email', $staff_email);
-                    $stmt->bindParam(':contact', $staff_contact);
-
-                    if ($stmt->execute()) {
-                        echo "<h2>New staff member added successfully:</h2>";
-                        echo "<ul>";
-                        echo "<li><strong>Username:</strong> $staff_username</li>";
-                        echo "<li><strong>First Name:</strong> $staff_fname</li>";
-                        echo "<li><strong>Last Name:</strong> $staff_lname</li>";
-                        echo "<li><strong>Email:</strong> $staff_email</li>";
-                        echo "<li><strong>Contact:</strong> $staff_contact</li>";
-                        echo "</ul>";
+                    if (!preg_match($UserEx, $staff_username)) {
+                        $error = "Invalid username format.";
+                    } elseif (!preg_match($PassEx, $staff_password)) {
+                        $error = "Invalid password format.";
+                    } elseif (!preg_match($NameEx, $staff_fname)) {
+                        $error = "Invalid first name format.";
+                    } elseif (!preg_match($NameEx, $staff_lname)) {
+                        $error = "Invalid last name format.";
+                    } elseif (!preg_match($EmailEx, $staff_email)) {
+                        $error = "Invalid email format.";
+                    } elseif (!preg_match($ContactEx, $staff_contact)) {
+                        $error = "Invalid contact number format.";
                     } else {
-                        echo "<p>Error adding staff member: " . $stmt->errorInfo()[2] . "</p>";
+
+                        $hashed_password = password_hash($staff_password, PASSWORD_DEFAULT);
+
+                        $query = "INSERT INTO users (Username, Password, Fname, Lname, Email, Contact, `User-Type`) 
+                                  VALUES (:username, :password, :fname, :lname, :email, :contact, 'staff')";
+                        $stmt = $db->prepare($query);
+                        $stmt->bindParam(':username', $staff_username);
+                        $stmt->bindParam(':password', $hashed_password);
+                        $stmt->bindParam(':fname', $staff_fname);
+                        $stmt->bindParam(':lname', $staff_lname);
+                        $stmt->bindParam(':email', $staff_email);
+                        $stmt->bindParam(':contact', $staff_contact);
+
+                        if ($stmt->execute()) {
+                            $success = "New staff member added successfully.";
+                        } else {
+                            $error = "Error adding staff member: " . $stmt->errorInfo()[2];
+                        }
                     }
+                }
+
+                if ($error) {
+                    echo "<p class='error'>$error</p>";
+                }
+
+                if ($success) {
+                    echo "<p class='success'>$success</p>";
+                    echo "<ul>";
+                    echo "<li><strong>Username:</strong> $staff_username</li>";
+                    echo "<li><strong>First Name:</strong> $staff_fname</li>";
+                    echo "<li><strong>Last Name:</strong> $staff_lname</li>";
+                    echo "<li><strong>Email:</strong> $staff_email</li>";
+                    echo "<li><strong>Contact:</strong> $staff_contact</li>";
+                    echo "</ul>";
                     echo '<button onclick="window.location.href=\'admin.php\';">Add Another Staff</button>';
                     echo '<button class="logout-button" onclick="window.location.href=\'logout.php\';">Log Out</button>';
                 } else {
                     ?>
                     <form action="" method="post">
                         <input type="text" name="username" placeholder="Username" required>
-                        <input type="password" name="password" placeholder="Password" required>
+                        <input type="text" name="password" placeholder="Password" required>
                         <input type="text" name="fname" placeholder="First Name" required>
                         <input type="text" name="lname" placeholder="Last Name" required>
-                        <input type="email" name="email" placeholder="Email" required>
-                        <input type="tel" name="contact" placeholder="Contact" required>
+                        <input type="text" name="email" placeholder="Email" required>
+                        <input type="text" name="contact" placeholder="Contact" required>
                         <button type="submit" name="add_staff">Add Staff</button>
                     </form>
                     <button class="logout-button" onclick="window.location.href='logout.php';">Log Out</button>
