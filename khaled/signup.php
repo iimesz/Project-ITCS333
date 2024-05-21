@@ -6,13 +6,13 @@ $error = '';
 $success = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
-    $confirm_password = trim($_POST['confirm_password']);
-    $fname = trim($_POST['fname']);
-    $lname = trim($_POST['lname']);
-    $email = trim($_POST['email']);
-    $contact = trim($_POST['contact']);
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $email = $_POST['email'];
+    $contact = $_POST['contact'];
     $user_type = 'customer';
 
     $UserEx = "/^[a-zA-Z0-9_-]{3,16}$/";
@@ -21,23 +21,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $EmailEx = "/^[a-zA-Z0-9.-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,5}$/";
     $ContactEx = "/^(?:\+973|00973)?(3[0-9]{7}|1[7-9][0-9]{6})$/";
 
-    if (empty($username) || empty($password) || empty($confirm_password) || empty($fname) || empty($lname) || empty($email) || empty($contact)) {
-        $error = "missing information ";
-    } elseif (!preg_match($UserEx, $username)) {
-        $error = "Invalid username format.";
+
+    if (!preg_match($UserEx, $username)) {
+        $error = "Invalid username format ";
     } elseif (!preg_match($PassEx, $password)) {
-        $error = "Invalid password format.";
+        $error = "Invalid password format";
     } elseif ($password !== $confirm_password) {
-        $error = "Passwords do not match.";
+        $error = "Passwords do not match";
     } elseif (!preg_match($NameEx, $fname)) {
-        $error = "Invalid first name format.";
+        $error = "Invalid first name format";
     } elseif (!preg_match($NameEx, $lname)) {
-        $error = "Invalid last name format.";
+        $error = "Invalid last name format";
     } elseif (!preg_match($EmailEx, $email)) {
-        $error = "Invalid email format.";
+        $error = "Invalid email format";
     } elseif (!preg_match($ContactEx, $contact)) {
-        $error = "Invalid contact number format.";
-    } else {
+        $error = "Invalid contact number format";
+    } 
+     else {
+
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $query = "INSERT INTO users (Username, Password, Fname, Lname, Email, Contact, `User-Type`) VALUES (:username, :password, :fname, :lname, :email, :contact, :user_type)";
         $stmt = $db->prepare($query);
@@ -50,9 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':user_type', $user_type);
 
         if ($stmt->execute()) {
-            $success = "User registered successfully.";
+            $success = "User registered successfully";
         } else {
-            $error = "Error registering user.";
+            $error = "Error registering user";
         }
     }
 }
@@ -115,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         input[type="password"],
         input[type="email"] {
             background-color: #f2f2f2;
-            border: 1px solid #ddd;
+            border: 5px solid #ddd;
         }
 
         button {
@@ -184,13 +185,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1>Sign Up</h1>
         <div class="form">
             <form method="post">
-                <input type="text" id="username" name="username" placeholder="Username">
-                <input type="password" name="password" placeholder="Password">
-                <input type="password" name="confirm_password" placeholder="Confirm Password">
-                <input type="text" name="fname" placeholder="First Name">
-                <input type="text" name="lname" placeholder="Last Name">
-                <input type="text" name="email" placeholder="Email">
-                <input type="text" name="contact" placeholder="Contact Number">
+                <input type="text" id="username" name="username" placeholder="Username" onkeyup="checkUN(this.value)" required>
+                <span id="unmsg"></span>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                <input type="text" name="fname" placeholder="First Name" required>
+                <input type="text" name="lname" placeholder="Last Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="contact" placeholder="Contact Number" required>
                 <button type="submit">Sign Up</button>
             </form>
             <button class="login-button" onclick="window.location.href='login.php';">Go to Login</button>
@@ -201,6 +203,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p class="success"><?php echo $success; ?></p>
             <?php endif; ?>
         </div>
-    </div>  
+    </div> 
+<script>
+
+function checkUN(str) {
+  if (str.length <= 3) {
+    document.getElementById("unmsg").innerHTML = "Type at least 4 characters";
+    document.getElementById('unmsg').style.color="orange";
+    return;
+  }
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = myAJAXFunction;
+  xhttp.open("GET", "checkun.php?q="+str);
+  xhttp.send();
+}
+
+function myAJAXFunction(){
+  if (this.responseText=="taken"){
+    document.getElementById('username').style.borderColor = "red";
+    document.getElementById("unmsg").innerHTML = "Not available";
+  }
+  else {
+    document.getElementById('unmsg').style.borderColor="green";
+    document.getElementById("unmsg").innerHTML = "Available";
+  }
+}
+</script>
 </body>
 </html>
