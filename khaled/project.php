@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'connection.php'; 
+require 'connection.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -152,18 +152,20 @@ require 'connection.php';
                     $EmailEx = "/^[a-zA-Z0-9.-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,5}$/";
                     $ContactEx = "/^(?:\+973|00973)?(3[0-9]{7}|1[7-9][0-9]{6})$/";
                     
-                    if (!preg_match($UserEx, $staff_username)) {
-                        $error = "Invalid username format.";
+                    if (empty($staff_username) || empty($staff_password) || empty($staff_fname) || empty($staff_lname) || empty($staff_email) || empty($staff_contact)) {
+                        $error = "All fields are required";
+                    } elseif (!preg_match($UserEx, $staff_username)) {
+                        $error = "Invalid username format";
                     } elseif (!preg_match($PassEx, $staff_password)) {
-                        $error = "Invalid password format.";
+                        $error = "Invalid password format";
                     } elseif (!preg_match($NameEx, $staff_fname)) {
-                        $error = "Invalid first name format.";
+                        $error = "Invalid first name format";
                     } elseif (!preg_match($NameEx, $staff_lname)) {
-                        $error = "Invalid last name format.";
+                        $error = "Invalid last name format";
                     } elseif (!preg_match($EmailEx, $staff_email)) {
-                        $error = "Invalid email format.";
+                        $error = "Invalid email format";
                     } elseif (!preg_match($ContactEx, $staff_contact)) {
-                        $error = "Invalid contact number format.";
+                        $error = "Invalid contact number format";
                     } else {
 
                         $hashed_password = password_hash($staff_password, PASSWORD_DEFAULT);
