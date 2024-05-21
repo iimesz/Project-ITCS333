@@ -1,50 +1,55 @@
-<?php
 session_start();
 require 'connection.php';
 
 $error = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = trim($_POST['username']); 
+    $password = trim($_POST['password']);
 
-    $UserEx = "/^[a-zA-Z0-9_-]{3,16}$/";
-    $PassEx = "/^(?=.*\d)(?=.*[a-z]).{6,}$/";
-
-    if (!preg_match($UserEx, $username)) {
-        $error = "Invalid username format.";
-    } elseif (!preg_match($PassEx, $password)) {
-        $error = "Invalid password format.";
+    if (empty($username)) {
+        $error = "Username is required";
+    } elseif (empty($password)) {
+        $error = "Password is required";
     } else {
-        $query = "SELECT * FROM users WHERE Username = :username";
-        $stmt = $db->prepare($query);
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
+       
+        $UserEx = "/^[a-zA-Z0-9_-]{3,16}$/";
+        $PassEx = "/^(?=.*\d)(?=.*[a-z]).{6,16}$/";
 
-        if ($stmt->rowCount() == 1) {
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            if (password_verify($password, $user['Password'])) {
-                $_SESSION['username'] = $user['Username'];
-                $_SESSION['user_type'] = $user['User-Type'];
+        if (!preg_match($UserEx, $username)) {
+            $error = "Invalid username format";
+        } elseif (!preg_match($PassEx, $password)) {
+            $error = "Invalid password format";
+        } else {
+            $query = "SELECT * FROM users WHERE Username = :username";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
 
-                if ($user['User-Type'] == 'admin') {
-                    header("Location: project.php");
-                } elseif ($user['User-Type'] == 'staff' || $user['User-Type'] == 'customer') {
-                    header("Location: mainpage.php");
+            if ($stmt->rowCount() == 1) {
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                if (password_verify($password, $user['Password'])) {
+                    $_SESSION['username'] = $user['Username'];
+                    $_SESSION['user_type'] = $user['User-Type'];
+
+                    if ($user['User-Type'] == 'admin') {
+                        header("Location: project.php");
+                    } elseif ($user['User-Type'] == 'staff' || $user['User-Type'] == 'customer') {
+                        header("Location: mainpage.php");
+                    } else {
+                        $error = "Invalid user type.";
+                    }
+                    exit();
                 } else {
-                    $error = "Invalid user type.";
+                    $error = "Invalid username or password.";
                 }
-                exit();
             } else {
                 $error = "Invalid username or password.";
             }
-        } else {
-            $error = "Invalid username or password.";
         }
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -169,8 +174,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1>Login</h1>
         <div class="form">
             <form method="post">
-                <input type="text" name="username" placeholder="Username" required >
-                <input type="password" name="password" placeholder="Password" required >
+                <input type="text" name="username" placeholder="Username"  >
+                <input type="password" name="password" placeholder="Password"  >
                 <button type="submit">Login</button>
             </form>
             <p class="signup-text">Don't have an account ?</p>
