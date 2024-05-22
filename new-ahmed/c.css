@@ -1,0 +1,10 @@
+.category-products{
+    justify-content: center;
+    min-height: 50px;
+}
+.container h1,h3{
+    text-align: center;
+}
+.product{
+    width: fit-content;
+}
