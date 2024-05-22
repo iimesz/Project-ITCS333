@@ -206,7 +206,8 @@ require 'connection.php';
                 } else {
                     ?>
                     <form action="" method="post">
-                        <input type="text" name="username" placeholder="Username">
+                        <input type="text" id="username" name="username" placeholder="Username" onkeyup="checkUN(this.value)">
+                        <span id="unmsg"></span>
                         <input type="password" name="password" placeholder="Password">
                         <input type="text" name="fname" placeholder="First Name">
                         <input type="text" name="lname" placeholder="Last Name">
@@ -226,5 +227,28 @@ require 'connection.php';
             ?>
         </div>
     </div>
+
+    <script>
+function checkUN(str) {
+  if (str.length <= 3) {
+    document.getElementById("unmsg").innerHTML = "Type at least 4 characters";
+    document.getElementById('unmsg').style.color = "orange";
+    return;
+    
+  }
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    if (this.responseText == "taken") {
+      document.getElementById('username').style.borderColor = "red";
+      document.getElementById("unmsg").innerHTML = "Not available";
+    } else {
+      document.getElementById('username').style.borderColor = "green";
+      document.getElementById("unmsg").innerHTML = "Available";
+    }
+  };
+  xhttp.open("GET", "checkun.php?q=" + str, true);
+  xhttp.send();
+}
+</script>
 </body>
 </html>
