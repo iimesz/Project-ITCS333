@@ -1,0 +1,285 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+.detail{
+    width : 87%;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 4px; 
+    width: 30%; 
+}
+
+#se {
+    flex: 1; 
+    border: none; 
+    padding: 5px; 
+    outline: none; 
+}
+
+
+.search-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-form button:hover {
+    background-color: #0056b3; 
+}
+
+img{
+    width:30%;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 20px 0;
+    align-items: center;
+}
+  
+header h1 {
+    text-align: center;
+    padding-top:10px ;
+    font-size: 20px;
+}
+
+header nav {
+    margin-top: 15px;
+    text-align: center;
+    display: inline;
+    align-items: center;
+    padding: 10px ;
+    margin-left: 4px;
+
+}
+header a{
+    margin-left: 10px;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid ;
+    padding: 3px 5px;
+}
+  
+.fruit {
+    background-image: url('image.png');
+    background-size: cover;
+    background-position: center;
+    min-height: 150px;
+}
+
+
+.container {
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+    padding: 100px 0;
+}  
+
+.category-products {
+    min-height:500px;
+    width:80%;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+  
+.product {
+    margin-top: 50px;
+    width:100%;
+    margin-right: 2%;
+    margin-left: 3%;
+    border-radius: 5px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    align-items: center;
+    text-align: center;
+}
+
+
+.product table {
+    width: 90%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.product table, .product th, .product td {
+    border: 1px solid #ddd;
+}
+
+.product th, .product td {
+    padding: 12px;
+    text-align: center;
+}
+
+.product th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.product tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+
+.product button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left:11px ;
+}
+
+.product button:hover {
+    background-color: #45a049;
+}
+
+footer {
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  min-height: 60px;
+  align-items: center;
+}
+
+footer p {
+  margin: 0 auto;
+  padding: 15px;
+}
+
+
+
+
+@media (max-width:768px){
+
+.detail{
+  display: block;
+  text-align: center;
+  width:100%;
+  align-items: center;
+}
+
+header nav{
+  width: 100%;
+}
+
+header a{
+  display: block;
+  width:100%;
+  padding: 8px ;
+  margin-left: 0px;
+}
+
+.search-form {
+  height: 5%;
+}
+
+.category-products{
+  display: block;
+  width: 80%;
+}
+
+.product{
+  margin-top: 25px;
+  width:100%;
+  min-height:300px;
+}
+
+.product table {
+    width: 90%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    height:120px;
+}
+
+#bt{
+    display: block;
+}
+
+.search-form {
+  width: 80%;  
+  margin: 0 auto;  
+}
+
+#se {
+  text-align: left;
+  width:90%;
+}
+
+
+}
+
+@media (max-width:400px){
+
+
+main{
+  width: 100%;
+}
+
+.category-products{
+  display: block;
+  width: 100%;
+}
+
+.product{
+  width:100%;
+  flex-direction: column;
+  min-height:200px;
+}
+
+.bt{
+  display: flex;
+}
+
+button{
+  font-size: 9px;
+  margin: 0 auto;
+}
+
+table{
+  width:50%;
+  height:50px;
+  font-size: 9px;
+
+}
+
+
+.product h3,p{
+  margin-bottom: 10px;
+}
+
+.product a{
+  margin-top: 10px;
+}
+
+#se {
+  width:80%;
+}
+
+
+
+}
